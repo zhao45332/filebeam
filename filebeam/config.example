@@ -1,0 +1,18 @@
+# FileBeam 配置文件示例
+# 复制此文件为 .env 并根据需要修改配置
+
+# 服务端口
+PORT=8888
+
+# 共享文件目录
+SHARED_DIR=./shared
+
+# 上传密码
+UPLOAD_PASSWORD=123456
+
+# 最大文件大小（字节，默认100MB）
+MAX_FILE_SIZE=104857600
+
+# 允许的文件类型（留空表示允许所有类型）
+# 示例：.jpg,.png,.pdf,.doc,.txt
+ALLOWED_TYPES= 

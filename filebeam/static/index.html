@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileBeam - 局域网文件共享工具</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📁</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📁 FileBeam</h1>
+            <p>局域网文件共享工具</p>
+        </header>
+
+        <main>
+            <!-- 文件列表区域 -->
+            <section class="file-list-section">
+                <div class="section-header">
+                    <h2>📂 共享文件列表</h2>
+                    <button id="refreshBtn" class="btn btn-secondary">🔄 刷新</button>
+                </div>
+                
+                <div id="fileList" class="file-list">
+                    <div class="loading">加载中...</div>
+                </div>
+            </section>
+
+            <!-- 上传区域 -->
+            <section class="upload-section">
+                <h2>⬆ 上传文件</h2>
+                <form id="uploadForm" class="upload-form">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="fileInput" name="file" required>
+                        <label for="fileInput" class="file-input-label">
+                            <span class="file-input-text">选择文件</span>
+                        </label>
+                    </div>
+                    
+                    <div class="password-input">
+                        <input type="password" id="passwordInput" name="password" placeholder="上传密码" required>
+                    </div>
+                    
+                    <div class="upload-buttons">
+                        <button type="submit" id="uploadBtn" class="btn btn-primary">上传文件</button>
+                        <button type="button" id="cancelBtn" class="btn btn-danger" disabled>取消上传</button>
+                    </div>
+                </form>
+
+                <!-- 进度条 -->
+                <div id="progressContainer" class="progress-container" style="display: none;">
+                    <div class="progress-bar">
+                        <div id="progressBar" class="progress-fill"></div>
+                    </div>
+                    <div id="progressText" class="progress-text">准备上传...</div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>FileBeam v2.0 - 安全稳定的文件共享服务</p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html> 
