@@ -51,7 +51,7 @@ filebeam/
 
 2. **运行服务**
 
-   **方法一：直接运行（推荐）**
+   **方法一：使用启动脚本（推荐）**
    ```bash
    # Windows
    start.bat
@@ -63,14 +63,18 @@ filebeam/
 
    **方法二：手动编译运行**
    ```bash
+   # 编译运行
    go build -o filebeam main.go
    ./filebeam
    ```
 
    **方法三：开发模式**
    ```bash
+   # 运行
    go run main.go
    ```
+
+   **注意：** 程序启动后会交互式地询问您输入共享文件夹路径。
 
 3. **访问服务**
    - 本地访问：http://localhost:8888/
@@ -83,7 +87,7 @@ filebeam/
 | 环境变量 | 默认值 | 说明 |
 |---------|--------|------|
 | `PORT` | `8888` | 服务端口 |
-| `SHARED_DIR` | `./shared` | 共享文件目录 |
+| `SHARED_DIR` | 交互式输入 | 共享文件目录（程序启动时询问） |
 | `UPLOAD_PASSWORD` | `123456` | 上传密码 |
 | `MAX_FILE_SIZE` | `104857600` | 最大文件大小（字节，默认100MB） |
 | `ALLOWED_TYPES` | 空（允许所有） | 允许的文件类型（如：.jpg,.png,.pdf） |

@@ -18,6 +18,7 @@ fi
 echo "启动 FileBeam 服务..."
 echo
 echo "提示："
+echo "- 程序启动后会询问您输入共享文件夹路径"
 echo "- 默认访问地址：http://localhost:8888/"
 echo "- 默认上传密码：123456"
 echo "- 按 Ctrl+C 停止服务"

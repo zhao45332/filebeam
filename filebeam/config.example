@@ -4,8 +4,12 @@
 # 服务端口
 PORT=8888
 
-# 共享文件目录
-SHARED_DIR=./shared
+# 共享文件目录（必须指定）
+# 示例：
+# SHARED_DIR=C:\Users\YourName\Documents\SharedFiles
+# SHARED_DIR=/home/user/Documents/SharedFiles
+# SHARED_DIR=D:\MyFiles
+SHARED_DIR=
 
 # 上传密码
 UPLOAD_PASSWORD=123456
