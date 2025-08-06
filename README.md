@@ -1,122 +1,223 @@
+FileBeam - 局域网文件共享工具
+一个安全、稳定、现代化的局域网文件共享服务，支持文件上传、下载和管理。
 
-# 📦 FileBeam - 简洁易用的局域网文件共享工具
+✨ 功能特性
+🎯 交互式配置 - 启动时自动询问共享文件夹路径
+🚀 灵活路径 - 支持任意文件夹作为共享目录
+🔧 智能验证 - 自动检查路径存在性和权限
+📁 自动创建 - 智能创建不存在的文件夹
+🔒 安全上传 - 密码保护的文件上传功能
+📁 文件管理 - 直观的文件列表和详细信息
+🚀 现代化界面 - 响应式设计，支持移动端
+📊 实时进度 - 上传进度条和状态提示
+🛡️ 安全检查 - 文件类型验证、大小限制、路径遍历防护
+📱 移动友好 - 完全响应式设计
+⚡ 高性能 - 优化的文件处理和服务
+🏗️ 项目结构
+filebeam/
+├── config/          # 配置管理
+│   └── config.go
+├── handlers/        # 请求处理器
+│   ├── upload.go    # 上传处理
+│   ├── download.go  # 下载处理
+│   └── files.go     # 文件列表处理
+├── server/          # 服务器核心
+│   └── server.go
+├── static/          # 前端资源
+│   ├── index.html   # 主页面
+│   ├── style.css    # 样式文件
+│   └── app.js       # 前端逻辑
+├── main.go          # 程序入口
+├── go.mod           # Go模块文件
+├── start.bat        # Windows启动脚本
+├── start.sh         # Linux/macOS启动脚本
+└── README.md        # 项目文档
+🚀 快速开始
+环境要求
+Go 1.24 或更高版本
+支持的操作系统：Windows、macOS、Linux
+安装和运行
+克隆或下载项目
 
-`FileBeam` 是一个基于 Go 开发的轻量级文件共享服务，支持：
+git clone <repository-url>
+cd filebeam
+运行服务
 
-- ✅ 浏览器文件上传（支持进度条）
-- ✅ 密码保护上传接口
-- ✅ 文件下载列表页面
-- ✅ 多人局域网访问共享内容
-- ✅ 防止重复上传
-- ✅ 文件上传取消与进度展示
-- ✅ 文件夹上传（支持结构保留，可拓展）
+方法一：使用启动脚本（推荐）
 
----
+# Windows
+start.bat
 
-## 🚀 快速开始
+# Linux/macOS
+chmod +x start.sh
+./start.sh
+方法二：手动编译运行
 
-### 1. 构建可执行文件（Windows 示例）：
+# 编译运行
+go build -o filebeam main.go
+./filebeam
+方法三：开发模式
 
-```bash
-go build -o filebeam.exe
-```
+# 运行
+go run main.go
+注意： 程序启动后会交互式地询问您输入共享文件夹路径。您可以指定任意存在的文件夹路径，如果路径不存在，程序会询问是否创建。
 
-### 2. 运行服务：
+访问服务
 
-```bash
-./filebeam.exe
-```
+本地访问：http://localhost:8888/
+局域网访问：http://[你的IP]:8888/
+使用示例
+========================================
+FileBeam 文件共享服务
+========================================
 
-输出示例：
+请输入要共享的文件夹路径：
+示例：
+  Windows: C:\Users\YourName\Documents\SharedFiles
+  Linux/Mac: /home/user/Documents/SharedFiles
+  Windows: D:\MyFiles
 
-```
-✅ FileBeam 文件共享服务启动：
-  本地访问:     http://localhost:8888/
-  局域网访问:   http://192.168.1.5:8888/
-```
+共享文件夹路径: C:\Users\YourName\Documents\SharedFiles
+✅ 共享文件夹: C:\Users\YourName\Documents\SharedFiles
 
----
+✅ FileBeam 文件共享服务启动成功！
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 共享目录: C:\Users\YourName\Documents\SharedFiles
+🔒 上传密码: 123456
+📏 最大文件: 100 MB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 访问地址:
+   本地访问: http://localhost:8888/
+   局域网访问: http://192.168.1.100:8888/
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 服务已就绪，等待连接...
+⚙️ 配置选项
+环境变量配置
+通过环境变量可以自定义配置：
 
-## 📂 默认共享目录
+环境变量	默认值	说明
+PORT	8888	服务端口
+SHARED_DIR	交互式输入	共享文件目录（程序启动时询问）
+UPLOAD_PASSWORD	123456	上传密码
+MAX_FILE_SIZE	104857600	最大文件大小（字节，默认100MB）
+ALLOWED_TYPES	空（允许所有）	允许的文件类型（如：.jpg,.png,.pdf）
+交互式配置
+程序启动时会自动询问您输入共享文件夹路径：
 
-程序会在当前目录自动创建一个名为 `shared` 的目录：
+输入路径 - 输入要共享的文件夹完整路径
+路径验证 - 程序会自动检查路径是否存在和可访问
+自动创建 - 如果路径不存在，程序会询问是否创建
+权限检查 - 确保文件夹具有读写权限
+配置示例
+# 使用环境变量（可选）
+set PORT=9000                    # Windows
+export PORT=9000                 # Linux/macOS
+set UPLOAD_PASSWORD=mypassword   # Windows
+export UPLOAD_PASSWORD=mypassword # Linux/macOS
+set MAX_FILE_SIZE=524288000      # Windows
+export MAX_FILE_SIZE=524288000   # Linux/macOS
 
-```
-./shared
-```
+# 然后运行程序
+go run main.go
+📖 使用说明
+文件上传
+在网页界面选择要上传的文件
+输入上传密码（默认：123456）
+点击"上传文件"按钮
+等待上传完成
+文件下载
+在文件列表中点击"下载"按钮
+文件将自动下载到本地
+文件信息
+点击文件列表中的"详情"按钮
+查看文件的详细信息（大小、修改时间等）
+🔧 API 接口
+获取文件列表
+GET /api/files
+响应示例：
 
-你上传的文件都会保存到这里。
+{
+  "files": [
+    {
+      "name": "example.pdf",
+      "size": 1024000,
+      "size_human": "1.0 MB",
+      "modified": "2024-01-01T12:00:00Z",
+      "modified_str": "2024-01-01 12:00:00",
+      "download_url": "/download/example.pdf",
+      "info_url": "/info/example.pdf"
+    }
+  ],
+  "count": 1,
+  "total_size": 1024000,
+  "total_size_human": "1.0 MB"
+}
+文件上传
+POST /upload
+Content-Type: multipart/form-data
 
----
+参数：
+- file: 要上传的文件
+- password: 上传密码
+文件下载
+GET /download/{filename}
+文件信息
+GET /info/{filename}
+🛡️ 安全特性
+密码保护 - 上传需要密码验证
+文件类型验证 - 可配置允许的文件类型
+大小限制 - 防止过大文件上传
+路径遍历防护 - 防止恶意文件路径
+文件名清理 - 自动清理不安全的文件名
+MD5校验 - 文件完整性验证
+🎨 界面特性
+响应式设计 - 完美适配桌面和移动设备
+现代化UI - 美观的渐变背景和卡片式布局
+实时反馈 - 上传进度条和状态提示
+动画效果 - 流畅的交互动画
+错误处理 - 友好的错误提示
+🔄 更新日志
+v2.1.0
+🎯 交互式共享文件夹配置
+🚀 支持任意路径作为共享目录
+🔧 自动路径验证和权限检查
+📁 智能文件夹创建功能
+✨ 完全重构，采用模块化架构
+🎨 全新的现代化界面设计
+🔒 增强的安全功能
+📱 完全响应式设计
+⚡ 性能优化
+📊 详细的文件信息显示
+v2.0.0
+✨ 完全重构，采用模块化架构
+🎨 全新的现代化界面设计
+🔒 增强的安全功能
+📱 完全响应式设计
+⚡ 性能优化
+📊 详细的文件信息显示
+v1.0.0
+🚀 基础文件共享功能
+📁 简单的文件列表
+⬆️ 基础文件上传功能
+🤝 贡献
+欢迎提交 Issue 和 Pull Request！
 
-## 📤 上传文件说明
+📄 许可证
+MIT License
 
-- 访问主页面 [http://localhost:8888](http://localhost:8888)
-- 填入正确的上传密码（默认为 `123456`）
-- 支持上传取消、上传进度展示
-- 如果文件重名，将拒绝上传（防止覆盖）
+🆘 常见问题
+Q: 如何修改上传密码？ A: 设置环境变量 UPLOAD_PASSWORD 或在 config/config.go 中修改默认值。
 
----
+Q: 如何限制文件大小？ A: 设置环境变量 MAX_FILE_SIZE（以字节为单位）。
 
-## 🛡️ 安全特性
+Q: 如何只允许特定文件类型？ A: 设置环境变量 ALLOWED_TYPES，例如：.jpg,.png,.pdf。
 
-| 功能                  | 描述                     |
-|-----------------------|--------------------------|
-| 上传密码保护          | 防止任意人上传文件       |
-| 拒绝重复上传          | 不允许文件名冲突上传     |
-| 取消上传              | 在上传过程中可随时取消   |
-| 文件类型限制（可拓展）| 目前未启用，可自定义扩展 |
+Q: 服务无法启动怎么办？ A: 检查端口是否被占用，可以修改 PORT 环境变量。
 
----
+Q: 文件上传失败？ A: 检查文件大小是否超出限制，密码是否正确，以及磁盘空间是否充足。
 
-## 📁 支持文件夹上传（拓展）
+Q: 如何指定共享文件夹？ A: 程序启动时会自动询问您输入共享文件夹路径，您可以直接输入任意文件夹的完整路径。
 
-> 要实现文件夹上传，请将前端 `<input type="file">` 替换为：
+Q: 共享文件夹不存在怎么办？ A: 程序会询问是否要创建该文件夹，输入 y 即可自动创建。
 
-```html
-<input type="file" name="file" webkitdirectory directory multiple>
-```
-
-并搭配 `file.webkitRelativePath` 在后端处理完整路径上传。详情可查看项目扩展说明。
-
----
-
-## 🛠️ 开发者指南
-
-- 使用 Go 原生 `net/http`
-- HTML 页面为内嵌模板，支持前端上传进度展示
-- 支持局域网自动打印访问地址
-- 可拓展支持文件夹压缩打包下载、Token认证等高级功能
-
----
-
-## 🔒 修改上传密码
-
-在源码中修改以下变量即可：
-
-```go
-const uploadPassword = "123456"
-```
-
-建议配合 nginx 或 frp 进行公网访问代理，并加上 HTTPS 保护。
-
----
-
-## 📌 依赖环境
-
-- Go 1.18+
-- 支持 Windows / Linux / macOS
-
----
-
-## 📷 示例截图
-
-> 主页面展示上传进度与文件列表
-
-![upload-example](https://dummyimage.com/600x150/ddd/000.png&text=FileBeam+上传界面+示意图)
-
----
-
-## 📄 License
-
-MIT License © 2025 FileBeam Contributors
+Q: 权限检查失败怎么办？ A: 确保您对指定的文件夹有读写权限，或者选择其他有权限的文件夹。
