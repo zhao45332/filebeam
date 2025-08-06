@@ -4,6 +4,10 @@
 
 ## ✨ 功能特性
 
+- 🎯 **交互式配置** - 启动时自动询问共享文件夹路径
+- 🚀 **灵活路径** - 支持任意文件夹作为共享目录
+- 🔧 **智能验证** - 自动检查路径存在性和权限
+- 📁 **自动创建** - 智能创建不存在的文件夹
 - 🔒 **安全上传** - 密码保护的文件上传功能
 - 📁 **文件管理** - 直观的文件列表和详细信息
 - 🚀 **现代化界面** - 响应式设计，支持移动端
@@ -28,9 +32,10 @@ filebeam/
 │   ├── index.html   # 主页面
 │   ├── style.css    # 样式文件
 │   └── app.js       # 前端逻辑
-├── shared/          # 共享文件目录
 ├── main.go          # 程序入口
 ├── go.mod           # Go模块文件
+├── start.bat        # Windows启动脚本
+├── start.sh         # Linux/macOS启动脚本
 └── README.md        # 项目文档
 ```
 
@@ -74,13 +79,44 @@ filebeam/
    go run main.go
    ```
 
-   **注意：** 程序启动后会交互式地询问您输入共享文件夹路径。
+   **注意：** 程序启动后会交互式地询问您输入共享文件夹路径。您可以指定任意存在的文件夹路径，如果路径不存在，程序会询问是否创建。
 
 3. **访问服务**
    - 本地访问：http://localhost:8888/
    - 局域网访问：http://[你的IP]:8888/
 
+### 使用示例
+
+```
+========================================
+FileBeam 文件共享服务
+========================================
+
+请输入要共享的文件夹路径：
+示例：
+  Windows: C:\Users\YourName\Documents\SharedFiles
+  Linux/Mac: /home/user/Documents/SharedFiles
+  Windows: D:\MyFiles
+
+共享文件夹路径: C:\Users\YourName\Documents\SharedFiles
+✅ 共享文件夹: C:\Users\YourName\Documents\SharedFiles
+
+✅ FileBeam 文件共享服务启动成功！
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 共享目录: C:\Users\YourName\Documents\SharedFiles
+🔒 上传密码: 123456
+📏 最大文件: 100 MB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 访问地址:
+   本地访问: http://localhost:8888/
+   局域网访问: http://192.168.1.100:8888/
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 服务已就绪，等待连接...
+```
+
 ## ⚙️ 配置选项
+
+### 环境变量配置
 
 通过环境变量可以自定义配置：
 
@@ -92,19 +128,27 @@ filebeam/
 | `MAX_FILE_SIZE` | `104857600` | 最大文件大小（字节，默认100MB） |
 | `ALLOWED_TYPES` | 空（允许所有） | 允许的文件类型（如：.jpg,.png,.pdf） |
 
+### 交互式配置
+
+程序启动时会自动询问您输入共享文件夹路径：
+
+1. **输入路径** - 输入要共享的文件夹完整路径
+2. **路径验证** - 程序会自动检查路径是否存在和可访问
+3. **自动创建** - 如果路径不存在，程序会询问是否创建
+4. **权限检查** - 确保文件夹具有读写权限
+
 ### 配置示例
 
 ```bash
-# Windows
-set PORT=9000
-set UPLOAD_PASSWORD=mypassword
-set MAX_FILE_SIZE=524288000
-go run main.go
+# 使用环境变量（可选）
+set PORT=9000                    # Windows
+export PORT=9000                 # Linux/macOS
+set UPLOAD_PASSWORD=mypassword   # Windows
+export UPLOAD_PASSWORD=mypassword # Linux/macOS
+set MAX_FILE_SIZE=524288000      # Windows
+export MAX_FILE_SIZE=524288000   # Linux/macOS
 
-# Linux/macOS
-export PORT=9000
-export UPLOAD_PASSWORD=mypassword
-export MAX_FILE_SIZE=524288000
+# 然后运行程序
 go run main.go
 ```
 
@@ -193,6 +237,18 @@ GET /info/{filename}
 
 ## 🔄 更新日志
 
+### v2.1.0
+- 🎯 交互式共享文件夹配置
+- 🚀 支持任意路径作为共享目录
+- 🔧 自动路径验证和权限检查
+- 📁 智能文件夹创建功能
+- ✨ 完全重构，采用模块化架构
+- 🎨 全新的现代化界面设计
+- 🔒 增强的安全功能
+- 📱 完全响应式设计
+- ⚡ 性能优化
+- 📊 详细的文件信息显示
+
 ### v2.0.0
 - ✨ 完全重构，采用模块化架构
 - 🎨 全新的现代化界面设计
@@ -229,4 +285,13 @@ A: 设置环境变量 `ALLOWED_TYPES`，例如：`.jpg,.png,.pdf`。
 A: 检查端口是否被占用，可以修改 `PORT` 环境变量。
 
 **Q: 文件上传失败？**
-A: 检查文件大小是否超出限制，密码是否正确，以及磁盘空间是否充足。 
+A: 检查文件大小是否超出限制，密码是否正确，以及磁盘空间是否充足。
+
+**Q: 如何指定共享文件夹？**
+A: 程序启动时会自动询问您输入共享文件夹路径，您可以直接输入任意文件夹的完整路径。
+
+**Q: 共享文件夹不存在怎么办？**
+A: 程序会询问是否要创建该文件夹，输入 `y` 即可自动创建。
+
+**Q: 权限检查失败怎么办？**
+A: 确保您对指定的文件夹有读写权限，或者选择其他有权限的文件夹。 
